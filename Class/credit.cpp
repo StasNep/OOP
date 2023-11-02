@@ -9,6 +9,12 @@ Credit::Credit() {
     month_left = 0;
 }
 
+Credit::Credit(double Debt, double Rate, unsigned Left) {
+    debt = x;
+    rate = y;
+    month_left = z;
+}
+
 // Геттер суммы кредита
 double Credit::get_debt() {
     return debt;
@@ -102,7 +108,7 @@ double Credit::part_repay_Payment(double payment, unsigned month) {
 }
 
 // Меняет параметры кредита как при внесении досрочного платежа payment в месяц month
-void Credit::make_part_repay(double payment, unsigned month, char mode) {
+void Credit::make_payment(unsigned month, char mode = 'n', double extra_payment = 0.0) {
     if (month > month_left || (mode != "p" && mode != "m")) {
         return;
     }
@@ -110,10 +116,11 @@ void Credit::make_part_repay(double payment, unsigned month, char mode) {
     if (mode == p) {
     	debt = debt_on(month)-payment;
     	rate = this->part_repay_Payment(payment, month) * month_left * 12 / debt * 100.0;
+        month_left -= 1;
     }
     else {
     	debt = debt_on(month)-payment;
-    	month_left = part_repay_Period(payment, month)
+    	month_left = part_repay_Period(payment, month);
     }
 
 }

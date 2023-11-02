@@ -18,8 +18,11 @@ private:
 	unsigned month_left;
 
 public:
-	//Конструктор
+	//Конструктор по умолчанию
 	Credit();
+
+	//Конструктор с начальными параметрами
+	Credit(double Debt, double Rate, unsigned Left);
 
 	//Геттеры всех переменных
 	double get_debt();
@@ -52,9 +55,10 @@ public:
 	//Расчёт размера выплаты, изменившейся после досрочного платежа payment в месяц month для уменьшения выплат
 	double part_repay_Payment(double payment, unsigned month);
 
-	//Меняет параметры кредита как при внесении досрочного платежа payment в месяц month (без возможности возврата обратно!)
-	//p - для уменьшения выплат; m - для уменьшения срока
-	double make_part_repay(double payment, unsigned month, char mode);
+	//Меняет параметры кредита как при внесении платежа в месяц month (без возможности возврата обратно!)
+	//Аргумент extra_payment необязательный, при его вводе будет перерасчёт кредита, но тогда обязательно нужно выбрать режим mode
+	//mode: p - для уменьшения выплат; m - для уменьшения срока
+	void make_payment(unsigned month, char mode, double extra_payment);
 
 };
 
